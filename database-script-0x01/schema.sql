@@ -1,4 +1,4 @@
-1. Create User table - stores information about users
+-- Create User table - stores information about users
 
 CREATE TABLE User (
     user_id INT AUTO_INCREMENT PRIMARY KEY, 
@@ -11,7 +11,7 @@ CREATE TABLE User (
     created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
 );
 
-2. Create Property table - stores information about rental properties
+-- Create Property table - stores information about rental properties
 
 CREATE TABLE Property (
     property_id INT AUTO_INCREMENT PRIMARY KEY, 
@@ -27,7 +27,7 @@ CREATE TABLE Property (
     FOREIGN KEY (host_id) REFERENCES User(user_id)
 );
 
-3. Create Booking table - stores information about reservations
+-- Create Booking table - stores information about reservations
 
 CREATE TABLE Booking (
     booking_id INT AUTO_INCREMENT PRIMARY KEY, 
@@ -44,7 +44,7 @@ CREATE TABLE Booking (
     FOREIGN KEY (user_id) REFERENCES User(user_id)
 );
 
-4. Create Payment table - stores payment information
+-- Create Payment table - stores payment information
 
 CREATE TABLE Payment (
     payment_id INT AUTO_INCREMENT PRIMARY KEY, 
@@ -57,7 +57,7 @@ CREATE TABLE Payment (
     FOREIGN KEY (booking_id) REFERENCES Booking(booking_id)
 );
 
-5. Create Review table - stores property reviews
+-- Create Review table - stores property reviews
 CREATE TABLE Review (
     review_id INT AUTO_INCREMENT PRIMARY KEY, 
     property_id INT NOT NULL,                
@@ -71,7 +71,7 @@ CREATE TABLE Review (
     FOREIGN KEY (user_id) REFERENCES User(user_id)
 );
 
-6. Create Message table - stores messages between users
+-- Create Message table - stores messages between users
 
 CREATE TABLE Message (
     message_id INT AUTO_INCREMENT PRIMARY KEY, 
@@ -84,7 +84,3 @@ CREATE TABLE Message (
     FOREIGN KEY (sender_id) REFERENCES User(user_id),
     FOREIGN KEY (recipient_id) REFERENCES User(user_id)
 );
-
--- Add a simple index for frequently searched columns
-CREATE INDEX idx_property_location ON Property(location);
-CREATE INDEX idx_booking_dates ON Booking(start_date, end_date);
