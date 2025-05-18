@@ -13,3 +13,26 @@ CREATE INDEX idx_booking_dates ON Booking (start_date, end_date); -- Composite i
 CREATE INDEX idx_property_host_id ON Property (host_id);
 CREATE INDEX idx_property_location ON Property (location);
 CREATE INDEX idx_property_pricepernight ON Property (pricepernight);
+
+# Performance Measurement
+
+Query: Find properties in a specific location and price_per_night:
+
+## 1.  Performance Before Indexes
+EXPLAIN SELECT *FROM property where location = 'kacyiru' AND price_per_night <= 100;
+
+* type: ALL
+* key: NULL
+* rows: 2
+* extra: Using where
+
+## 2. Apply Indexes
+CREATE INDEX idx_location_price ON property (location, price_per_night);
+
+## 3.  Performance after Indexes
+EXPLAIN SELECT * FROM property where location = 'kacyiru' AND price_per_night <= 100;
+
+* type: range
+* key: idx_location_price
+* rows: 1
+* extra: Using index condition
