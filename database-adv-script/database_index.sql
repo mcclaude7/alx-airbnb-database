@@ -16,10 +16,14 @@ CREATE INDEX idx_property_pricepernight ON Property (pricepernight);
 
 # Performance Measurement
 
-Query: Find properties in a specific location and price_per_night:
-
 ## 1.  Performance Before Indexes
-EXPLAIN SELECT *FROM property where location = 'kacyiru' AND price_per_night <= 100;
+
+### by using MySQL
+EXPLAIN SELECT * FROM property where location = 'kacyiru' AND price_per_night <= 100;
+
+### By using Postgre SQL
+EXPLAIN ANALYZE SELECT * FROM property where location = 'kacyiru' AND price_per_night <= 100;
+Query: Find properties in a specific location and price_per_night:
 
 * type: ALL
 * key: NULL
@@ -30,8 +34,12 @@ EXPLAIN SELECT *FROM property where location = 'kacyiru' AND price_per_night <= 
 CREATE INDEX idx_location_price ON property (location, price_per_night);
 
 ## 3.  Performance after Indexes
+
+### by using MySQL
 EXPLAIN SELECT * FROM property where location = 'kacyiru' AND price_per_night <= 100;
 
+### By using Postgre SQL
+EXPLAIN ANALYZE SELECT * FROM property where location = 'kacyiru' AND price_per_night <= 100;
 * type: range
 * key: idx_location_price
 * rows: 1
