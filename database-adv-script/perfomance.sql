@@ -19,7 +19,8 @@ mysql> SELECT
     -> JOIN
     ->     Property AS p ON b.property_id = p.property_id
     -> JOIN
-    ->     Payment AS pm ON b.booking_id = pm.booking_id;
+    ->     Payment AS pm ON b.booking_id = pm.booking_id
+    ->     AND pay.status = 'completed';
 
 
 # Analyze Query Performance with EXPLAIN
